@@ -77,3 +77,17 @@ class Student extends Person {
 const student = new Student("Alice", 20, "A");
 
 
+//problem-07
+function getIntersection(arr1: number[], arr2: number[]): number[] {
+    const commonNumbers: number[] = [];
+
+    arr1.forEach((num: number) => {
+        if (arr2.includes(num)) {
+            commonNumbers.push(num);
+        }
+    });
+
+    return commonNumbers;
+} 
+
+

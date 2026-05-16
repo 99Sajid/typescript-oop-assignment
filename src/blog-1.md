@@ -1,135 +1,99 @@
-# `blog-1.md`
-
-````md
-# Why `unknown` is Safer Than `any` in TypeScript
+# Why unknown is Safer than any in TypeScript
 
 ## Introduction
 
-TypeScript is designed to make JavaScript applications safer and easier to maintain. Two commonly used types for handling unpredictable data are `any` and `unknown`. Although they may seem similar at first, they behave very differently.
+In TypeScript, sometimes we do not know what type of data will come. For this reason TypeScript gives us `any` and `unknown`. At first they may look similar, but actually they work differently.
 
-The `any` type disables TypeScript’s type checking, while `unknown` forces developers to verify data before using it. This is why `any` is often called a “type safety hole.”
+The `any` type removes type checking, but `unknown` keeps the program safer. That is why many developers say `any` is a type safety hole.
 
 ---
 
-## What is `any`?
+## What is any?
 
-The `any` type allows a variable to store any kind of value. Once a variable becomes `any`, TypeScript stops checking for errors.
+The `any` type can store any kind of value.
 
 ```typescript
 let value: any = "Hello";
 
-value.toUpperCase();
-value.toFixed(2);
-value.nonExistingMethod();
-````
-
-Even though some methods are invalid for strings, TypeScript will not show any errors. Problems will only appear during runtime.
-
-This makes `any` dangerous in large projects because it removes the benefits of static typing.
-
----
-
-## Why is `any` Called a Type Safety Hole?
-
-Type safety means preventing invalid operations before the code runs.
-
-Using `any` breaks this protection because:
-
-* TypeScript stops checking the variable
-* Invalid methods can be called
-* Runtime errors become more common
-* Bugs become harder to detect
-
-Example:
-
-```typescript
-function processData(data: any) {
-  return data.toUpperCase();
-}
-
-processData(42);
+value = 10;
+value = true;
 ```
 
-This code compiles successfully but crashes at runtime because numbers do not have the `toUpperCase()` method.
+The problem is TypeScript will not check for mistakes when using `any`.
+
+```typescript
+let data: any = 50;
+
+data.toUpperCase();
+```
+
+This code gives an error when running because numbers do not have `toUpperCase()`, but TypeScript will not stop it.
+
+So using `any` too much can create bugs in big projects.
 
 ---
 
-## What is `unknown`?
+## What is unknown?
 
-The `unknown` type is a safer alternative. It can also hold any value, but TypeScript requires type checking before usage.
+The `unknown` type is safer.
+
+It can also store different types of values, but before using the value we must check the type first.
 
 ```typescript
 let value: unknown = "TypeScript";
 ```
 
-You cannot directly use string methods unless the type is verified.
+If we try to use methods directly, TypeScript gives an error.
 
 ```typescript
-value.toUpperCase(); // Error
+value.toUpperCase();
 ```
 
-This prevents accidental misuse.
+So we need type checking first.
 
 ---
 
-## Type Narrowing in TypeScript
+## Type Narrowing
 
-Type narrowing is the process of checking a variable’s type before using it.
+Type narrowing means checking the type before using the value.
 
 Example:
 
 ```typescript
 function printValue(value: unknown): string {
-  if (typeof value === "string") {
-    return value.toUpperCase();
-  }
 
-  return "Not a string";
+    if (typeof value === "string") {
+        return value.toUpperCase();
+    }
+
+    return "Not a string";
 }
 ```
 
-Here, TypeScript narrows the type from `unknown` to `string` inside the `if` block.
+Here the `typeof` keyword checks if the value is a string. After checking, TypeScript understands the type.
 
-Common narrowing techniques include:
-
-* `typeof`
-* `instanceof`
-* `in` operator
-* Custom type guards
+This process is called type narrowing.
 
 ---
 
-## Benefits of Using `unknown`
+## Why unknown is Better
 
-### Better Safety
+Some advantages of `unknown`:
 
-It prevents unsafe operations.
+- Safer than `any`
+- Reduces runtime errors
+- Type checking is required
+- Better for large projects
 
-### Fewer Runtime Errors
-
-Developers must validate data before using it.
-
-### Cleaner Code
-
-The code becomes easier to understand and maintain.
-
-### Ideal for External Data
-
-Useful when handling:
-
-* API responses
-* User input
-* JSON data
-* Third-party libraries
+It is useful when working with:
+- API data
+- User input
+- JSON data
 
 ---
 
 ## Conclusion
 
-Although `any` and `unknown` both accept all data types, they serve very different purposes. The `any` type removes TypeScript’s protection and can introduce hidden bugs. On the other hand, `unknown` enforces validation and keeps applications safer.
+Both `any` and `unknown` can store different types of values. But `any` removes safety while `unknown` keeps the program secure by forcing type checks.
 
-For modern TypeScript development, `unknown` is the preferred choice whenever the data type is uncertain.
-
-````
-
----
+For better and safer TypeScript code, using `unknown` is usually the better choice.

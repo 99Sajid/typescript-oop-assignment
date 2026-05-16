@@ -11,6 +11,7 @@ function filterEvenNumbers(numbers: number[]): number[] {
     return evenNumbers;
 }
 
+
 //problem-02
 function reverseString(input: string): string {
   return input.split("").reverse().join("");
@@ -28,11 +29,12 @@ function checkType(value: StringOrNumber): string {
   return "Number";
 }
 
+
 //problem-04
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
     return obj[key];
 }
-const user = { id: 1, name: "John Doe", age: 21 };
+
 
 
 //problem-05
@@ -48,8 +50,8 @@ function toggleReadStatus(book: Book): Book & { isRead: boolean } {
     isRead: true,
   };
 }
-const myBook = { title: "TypeScript Guide", author: "Jane Doe", publishedYear: 2024 };
-console.log(toggleReadStatus(myBook));
+
+
 
 //problem-06
 class Person {
@@ -74,7 +76,8 @@ class Student extends Person {
         return `Name: ${this.name}, Age: ${this.age}, Grade: ${this.grade}`;
     }
 }
-const student = new Student("Alice", 20, "A");
+
+
 
 
 //problem-07
